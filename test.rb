@@ -25,32 +25,32 @@ class TestGame < Minitest::Test
   end
   
   def test_static_rolls_score_is_correct
-    (0..9).each do |roll|
+    (1..9).each do |pin_count|
       (0..9).each do |frames|
-        @game.add_roll(roll)
+        @game.add_roll(pin_count)
         @game.add_roll(0)
       end
-      assert_equal(roll * 10, @game.score, "score is wrong first static test!")
+      assert_equal(pin_count * 10, @game.score, "score is wrong first static test!")
       @game.reset
     end        
   end
   
   def test_inverse_static_rolls_test
-    (0..9).each do |roll|
+    (0..9).each do |pin_count|
       (0..9).each do |frames|
         @game.add_roll(0)
-        @game.add_roll(roll)
+        @game.add_roll(pin_count)
       end
-      assert_equal(roll * 10, @game.score, "score is wrong second static test")
+      assert_equal(pin_count * 10, @game.score, "score is wrong second static test")
       @game.reset
     end
   end
   
   def test_various_non_strike_or_spare_rolls
-    (1..9).each do |roll|
+    (1..9).each do |pin_count|
       (0..9).each do |frames|
-        @game.add_roll(roll)
-        @game.add_roll(9 - roll)
+        @game.add_roll(pin_count)
+        @game.add_roll(9 - pin_count)
       end
       assert_equal(90, @game.score, "various non strike or spare tests failed")
       @game.reset
@@ -66,18 +66,44 @@ class TestGame < Minitest::Test
       @game.add_roll(0)
       @game.add_roll(0)
     end
-
     assert_equal(20, @game.score, "simple spare and gutters wrong")
   end
   
-  
-  def test_all_spare
-	(1..20).each do |roll|
-	  @game.add_roll(5)
-	end
+  def test_9_spares
+    (0..8).each do |frame|
+      @game.add_roll(5)
+      @game.add_roll(5)
+    end      
+    @game.add_roll(5)
+    @game.add_roll(0)
 
-   assert_equal(150, @game.score, "all spares failed failed failed")
+    assert_equal(140, @game.score, "9 spares and a 5 wrong")
   end
-
+  
+  def test_all_spares
+    (0..9).each do |frame|
+      @game.add_roll(5)
+      @game.add_roll(5)
+    end      
+    @game.add_roll(5)
     
+    @game.show_rolls
+    
+    
+    assert_equal(150, @game.score, "all spares wrong")
+  end  
+  
+  def test_one_strike
+    @game.add_roll(10)
+    
+    @game.add_roll(5)
+    @game.add_roll(4)
+    (1..7).each do |roll|
+      @game.add_roll(0)
+      @game.add_roll(0)
+    end
+    @game.add_roll(0)
+    assert_equal(28, @game.score, "simple strike, 2 non-spare balls, and gutters wrong")
+  end
 end
+
