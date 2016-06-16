@@ -14,6 +14,7 @@
 .dat*
 .repl_history
 build/
+/*.rb~
 
 ## Documentation cache and generated files:
 /.yardoc/

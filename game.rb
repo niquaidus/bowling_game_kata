@@ -15,16 +15,13 @@ class Game
   
   def score
     score = 0
-    puts "\n\n#{@frames.inspect}"
     
-    (0..@frames.length -1).step(2).each do  |index|
+    (0..@frames.length - 1).step(2).each do  |index|
       if @frames[index] + @frames[index + 1] == 10
         # have a spare
         score += @frames[index] + @frames[index + 1] + @frames[index + 2]
         
-        
-        puts "\n\n#{score}"
-        
+             
         
         
         

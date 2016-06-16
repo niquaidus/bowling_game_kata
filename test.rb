@@ -52,7 +52,7 @@ class TestGame < Minitest::Test
         @game.add_roll(roll)
         @game.add_roll(9 - roll)
       end
-      assert_equal(90, @game.score, "various non strike or apsre tests failed")
+      assert_equal(90, @game.score, "various non strike or spare tests failed")
       @game.reset
     end
   end
@@ -70,19 +70,14 @@ class TestGame < Minitest::Test
     assert_equal(20, @game.score, "simple spare and gutters wrong")
   end
   
-  def test_9_spares
-    (0..8).each do |frame|
-      @game.add_roll(5)
-      @game.add_roll(5)
-    end  
-    
-    @game.add_roll(5)
-    @game.add_roll(0)
+  
+  def test_all_spare
+	(1..20).each do |roll|
+	  @game.add_roll(5)
+	end
 
-    assert_equal(145, @game.score, "9 spares and a 5 wrong")
+   assert_equal(150, @game.score, "all spares failed failed failed")
   end
-  
-  
-  
+
     
 end
