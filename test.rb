@@ -79,7 +79,7 @@ class TestGame < Minitest::Test
     @game.add_roll(5)
     @game.add_roll(0)
 
-    assert_equal(145, @game.score, "9 spares and a 5 wrong")
+    assert_equal(140, @game.score, "9 spares and a 5 wrong")
   end
   
   
