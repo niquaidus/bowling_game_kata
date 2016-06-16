@@ -1,4 +1,15 @@
 class Game
+  
+  # TODO remove later - debug only
+  def show_rolls
+    puts "\n\nRolls: #{@frames.count}"
+    @frames.each do |frame|
+      puts frame.inspect
+    end
+    puts "\n-------SCORE: #{self.score}\n\n"
+  end
+  
+  
   def initialize
     #@score = 0
     @frames = []

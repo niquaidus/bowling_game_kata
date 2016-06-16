@@ -25,34 +25,34 @@ class TestGame < Minitest::Test
   end
   
   def test_static_rolls_score_is_correct
-    (0..9).each do |roll|
+    (1..9).each do |pin_count|
       (0..9).each do |frames|
-        @game.add_roll(roll)
+        @game.add_roll(pin_count)
         @game.add_roll(0)
       end
-      assert_equal(roll * 10, @game.score, "score is wrong first static test!")
+      assert_equal(pin_count * 10, @game.score, "score is wrong first static test!")
       @game.reset
     end        
   end
   
   def test_inverse_static_rolls_test
-    (0..9).each do |roll|
+    (0..9).each do |pin_count|
       (0..9).each do |frames|
         @game.add_roll(0)
-        @game.add_roll(roll)
+        @game.add_roll(pin_count)
       end
-      assert_equal(roll * 10, @game.score, "score is wrong second static test")
+      assert_equal(pin_count * 10, @game.score, "score is wrong second static test")
       @game.reset
     end
   end
   
   def test_various_non_strike_or_spare_rolls
-    (1..9).each do |roll|
+    (1..9).each do |pin_count|
       (0..9).each do |frames|
-        @game.add_roll(roll)
-        @game.add_roll(9 - roll)
+        @game.add_roll(pin_count)
+        @game.add_roll(9 - pin_count)
       end
-      assert_equal(90, @game.score, "various non strike or apsre tests failed")
+      assert_equal(90, @game.score, "various non strike or spare tests failed")
       @game.reset
     end
   end
@@ -66,6 +66,8 @@ class TestGame < Minitest::Test
       @game.add_roll(0)
       @game.add_roll(0)
     end
+    
+    @game.show_rolls
 
     assert_equal(20, @game.score, "simple spare and gutters wrong")
   end
