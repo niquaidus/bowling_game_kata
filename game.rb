@@ -16,7 +16,7 @@ class Game
     if @frames.length == 0
       @frames << Frame.new
     end
-    if @frames.last.complete?
+    if @frames.last.complete?(@frames.length == 10)
       @frames << Frame.new
     end
     @frames.last.add_roll(value)
@@ -26,22 +26,24 @@ class Game
   def score
     score = 0
     @frames.each_with_index do |frame, index|
-      if frame.spare?
-        nextframe = @frames[index + 1]
-        score += frame.ball_one + frame.ball_two + nextframe.ball_one
 
+      if frame.spare?
+        if index == 9
+
+            score += frame.ball_one + frame.ball_two + frame.ball_three
+        else
+            nextframe = @frames[index + 1]
+            score += frame.ball_one + frame.ball_two + nextframe.ball_one
+        end  
       elsif frame.strike?
         nextframe = @frames[index + 1]
-        score += frame.ball_one + frame.ball_two + nextframe.ball_one + nextframe.ball_two
+        score += frame.ball_one + nextframe.ball_one + nextframe.ball_two
 
       else
         score += frame.ball_one + frame.ball_two
       end
 
     end
-     
-    
-
 
   #   (0..19).step(2).each do  |index|
   #    if @frames[index] + @frames[index + 1] == 10
@@ -52,7 +54,7 @@ class Game
   #      score += @frames[index] + @frames[index + 1]
   #    end
   #  end
-    
+
     score
   end
 end

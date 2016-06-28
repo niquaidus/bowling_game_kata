@@ -28,7 +28,8 @@ class Frame
   end
   
   def spare?
-    (@rolls.length == 2) && (@rolls[0] + @rolls[1] == 10)
+    ((@rolls[0] != 10) && (@rolls.length == 3)) ||   
+    ((@rolls.length == 2) && (@rolls[0] + @rolls[1] == 10))    
   end
 
   def ball_one
@@ -37,6 +38,10 @@ class Frame
 
   def ball_two
     @rolls[1]
+  end
+  
+  def ball_three
+    @rolls[2]
   end
 
 end

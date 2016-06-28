@@ -85,9 +85,7 @@ class TestGame < Minitest::Test
       @game.add_roll(5)
       @game.add_roll(5)
     end      
-    @game.add_roll(5)
-       
-    
+    @game.add_roll(5)   
     assert_equal(150, @game.score, "all spares wrong")
   end  
   
@@ -101,8 +99,20 @@ class TestGame < Minitest::Test
     end
     @game.add_roll(0)
     @game.add_roll(0)
+    
     assert_equal(28, @game.score, "simple strike, 2 non-spare balls, and gutters wrong")
   end
+  
+  def test_9_strikes
+    (0..8).each do |frame|
+      @game.add_roll(10)
+    end      
+    @game.add_roll(5)
+    @game.add_roll(0)
+
+    assert_equal(255, @game.score, "9 strikes and a 5 & 0 wrong")
+  end
+  
 end
 
 
