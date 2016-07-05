@@ -125,7 +125,37 @@ class TestGame < Minitest::Test
     assert_equal(255, @game.score, "9 strikes and a 5 & 0 wrong")
   end
   
+    def test_10_strikes
+    (0..8).each do |frame|
+      @game.add_roll(10)
+    end
+    @game.add_roll(10)    
+    @game.add_roll(5)
+    @game.add_roll(0)
+
+    assert_equal(280, @game.score, "10 strikes and a 5 & 0 wrong")
+  end
   
+    def test_perfect_game
+    (0..8).each do |frame|
+      @game.add_roll(10)
+    end
+    @game.add_roll(10)    
+    @game.add_roll(10)
+    @game.add_roll(10)
+
+    assert_equal(300, @game.score, "Perfect game wrong")
+  end
+    
+    def test_10_strikes_and_spare
+    (0..9).each do |frame|
+      @game.add_roll(10)
+    end
+    @game.add_roll(5)    
+    @game.add_roll(5)
+
+    assert_equal(285, @game.score, "10 strikes and spare wrong")
+  end
   
 end
 

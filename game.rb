@@ -42,25 +42,28 @@ class Game
 
         if index < 8          
           nextnextframe = @frames[index + 2]
-          puts "NextNextFrame: #{nextnextframe.inspect}\n"
+#          puts "NextNextFrame: #{nextnextframe.inspect}\n"
         end
         if index < 9
           nextframe = @frames[index + 1]
-          puts "NextFrame: #{nextframe.inspect}\n"
+#          puts "NextFrame: #{nextframe.inspect}\n"
         end
-        
-        if index == 9
-          puts "Yo Yo\n" 
-        end
-        
+                
         #------ Begin scoring if two or more consecutive strikes are rolled
-        if nextframe.ball_one == 10 
-          score += frame.ball_one + nextframe.ball_one
-          if nextnextframe.ball_one != 10  
-            score += nextnextframe.ball_one + nextnextframe.ball_two
-          else
-            score += nextnextframe.ball_one
-          end   
+        if index == 8 && nextframe.ball_one == 10
+          score += frame.ball_one + nextframe.ball_one + nextframe.ball_two
+          
+        elsif index == 9 && frame.ball_one == 10
+          score += frame.ball_one + frame.ball_two + frame.ball_three
+        
+        elsif nextframe.ball_one == 10 
+            score += frame.ball_one + nextframe.ball_one
+            if nextnextframe.ball_one != 10  
+              score += nextnextframe.ball_one + nextnextframe.ball_two
+            else
+              score += nextnextframe.ball_one
+            end
+          
         # End scoring if two or more consecutive strikes are rolled ------#
 
         # Scoring for a strike with two non-strikes in next frame    
@@ -72,8 +75,8 @@ class Game
       else
         score += frame.ball_one + frame.ball_two
       end
-      puts "index: #{index}\nframe: #{frame.inspect}\nB1: #{frame.ball_one}  B2: : #{frame.ball_two}\n"
-      puts "Score: #{score}\n\n"
+#      puts "index: #{index}\nframe: #{frame.inspect}\nB1: #{frame.ball_one}  B2: : #{frame.ball_two}\n"
+#      puts "Score: #{score}\n\n"
     end
 
   #   (0..19).step(2).each do  |index|

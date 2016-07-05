@@ -11,15 +11,16 @@ class TestGame < Minitest::Test
       @game = Game.new
     end
 
-  def test_10_strikes
-    (0..8).each do |frame|
+  def test_10_strikes_and_spare
+    (0..9).each do |frame|
       @game.add_roll(10)
     end
-    @game.add_roll(10)      
+    @game.add_roll(5)    
     @game.add_roll(5)
-    @game.add_roll(0)
 
-    assert_equal(280, @game.score, "10 strikes and a 5 & 0 wrong")
+    assert_equal(285, @game.score, "10 strikes and spare wrong")
   end
+  
+  
   
 end 
